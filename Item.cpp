@@ -14,7 +14,7 @@ namespace oop244{
 	void Item::deallocate(){
 
 		if (_name){
-			delete[] _name;
+			
 			_name = (char*)0;
 		}
 	}
@@ -38,6 +38,7 @@ namespace oop244{
 	}
 	Item::Item(const Item& Item){
 		_name = (char*)0;
+
 		strncpy(_upc, Item._upc, MAX_UPC_LEN);
 		if (Item._name && allocate(strlen(Item._name) + 1)){
 			strcpy(_name, Item._name);
@@ -112,9 +113,9 @@ namespace oop244{
 		if (_taxed == false){
 			return _price;
 		}
-		
+		else{
 			return (_price + (_price * TAX));
-		
+		}
 	}
 
   // member operator overloads 
@@ -126,12 +127,15 @@ namespace oop244{
 		return false;
 	}
 	int Item::operator+=(int quantity){
-		return (_quantity + quantity);
+
+		int q = _quantity += quantity;
+		return q;
 	}
 
   // non-member operator overload
 	double operator+=(double& d, const Item& I){
-		return ((I.price() * I.quantity()) + d);
+		d = ((I.cost() * I.quantity()) + d);
+		return d;
 	}
 
 

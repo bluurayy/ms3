@@ -1,30 +1,30 @@
 // Final Project Milestone 3 
 // Item Tester program
-// File	ItemTester.cpp
-// Version 1.1
-// Date	2015/04/03
+// File	ms3Tester.cpp
+// Version 1.0
+// Date	2015/04/06
 // Author	Fardad Soleimanloo
 //
 // Revision History
 // -----------------------------------------------------------
 // Name               Date                 Reason
-// Fardad             2015/04/03		       Preliminary release
-// Fardad             2015/04/06		       Penamed ms4.txt to ms3.txt
+// Fardad             2015/04/06		       Preliminary release
 /////////////////////////////////////////////////////////////////
 
 #include "Item.h"
 #define TAB '\t'
 #include <iomanip>
-
+#include <cstdlib>
 using namespace std;
 namespace oop244{
   class SItem :public Item{
   public:
-   SItem() :Item("", "", 0, 0){}
+    SItem() :Item("", "", 0, 0){}
     virtual std::fstream& store(std::fstream& file)const{
       file.open("ms3.txt", ios::out);
       file << upc() << TAB << name() << TAB << quantity() << TAB << qtyNeeded() << TAB
         << int(taxed()) << TAB << price() << endl;
+      file.clear();
       file.close();
       return file;
     }
@@ -45,6 +45,7 @@ namespace oop244{
       taxed(bool(ibuf));
       file >> dbuf;
       price(dbuf);
+      file.clear();
       file.close();
       return file;
     }
@@ -79,7 +80,15 @@ namespace oop244{
     }
   };
 }
-
+void dumpFile(fstream& f){
+  f.open("ms3.txt", ios::in);
+  char ch;
+  while (!f.get(ch).fail()){
+    cout.put(ch);
+  }
+  f.clear();
+  f.close();
+}
 using namespace oop244;
 int main(){
   double res, val = 0.0;
@@ -107,5 +116,7 @@ int main(){
   cout << "op+=double: ----------" << endl;
   res = val += U;
   cout << res << "=" << val << endl;
+  dumpFile(F);
+  cout << "----The End" << endl;
   return 0;
 }

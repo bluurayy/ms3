@@ -2,7 +2,7 @@
 #define __244__Streamable__
 // hearfile includes:
 #include <iostream>
-
+#include <fstream>
 namespace oop244{
 	class Streamable{
 	public:

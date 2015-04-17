@@ -48,7 +48,7 @@ namespace oop244{
     // operators
 	  bool operator==(const char *)const;
 	  int operator+=(int);
-
+	  
 
   };
   // Non-member operator overload prototype
